@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
+import { resendConfirmationRequest } from '../api/auth'
 import { IconMark } from '../components/icons'
 
 export default function Login() {
@@ -11,20 +12,35 @@ export default function Login() {
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
+  const [needsConfirmation, setNeedsConfirmation] = useState(false)
+  const [resendState, setResendState] = useState('idle') // 'idle' | 'sending' | 'sent'
 
   const from = location.state?.from?.pathname || '/'
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     setError('')
+    setNeedsConfirmation(false)
     setLoading(true)
     try {
       await login(email, password)
       navigate(from, { replace: true })
     } catch (err) {
+      if (err.response?.data?.emailNotConfirmed) {
+        setNeedsConfirmation(true)
+      }
       setError(err.response?.data?.message || 'Invalid email or password.')
     } finally {
       setLoading(false)
+    }
+  }
+
+  const handleResend = async () => {
+    setResendState('sending')
+    try {
+      await resendConfirmationRequest(email)
+    } finally {
+      setResendState('sent')
     }
   }
 
@@ -44,7 +60,19 @@ export default function Login() {
           <h2 className="font-display text-lg font-semibold">Log in</h2>
 
           {error && (
-            <p className="rounded-lg bg-scarlet/10 border border-scarlet/30 px-3 py-2 text-sm text-scarlet">{error}</p>
+            <div className="rounded-lg bg-scarlet/10 border border-scarlet/30 px-3 py-2 text-sm text-scarlet">
+              <p>{error}</p>
+              {needsConfirmation && (
+                <button
+                  type="button"
+                  onClick={handleResend}
+                  disabled={resendState !== 'idle'}
+                  className="mt-1 text-scarlet underline hover:text-ember disabled:opacity-60"
+                >
+                  {resendState === 'sent' ? 'Confirmation email sent — check your inbox' : resendState === 'sending' ? 'Sending…' : 'Resend confirmation email'}
+                </button>
+              )}
+            </div>
           )}
 
           <label className="flex flex-col gap-1 text-sm text-gray-400">

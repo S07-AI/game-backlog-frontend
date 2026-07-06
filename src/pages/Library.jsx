@@ -152,34 +152,42 @@ export default function Library() {
             <motion.div
               key={game.id}
               variants={cardVariants}
-              className="rounded-xl border border-line bg-surface p-5 transition-all duration-200 hover:border-scarlet/30 hover:shadow-[0_8px_24px_-12px_rgba(224,38,63,0.4)]"
+              className="overflow-hidden rounded-xl border border-line bg-surface transition-all duration-200 hover:border-scarlet/30 hover:shadow-[0_8px_24px_-12px_rgba(224,38,63,0.4)]"
             >
-              <div className="flex items-start justify-between mb-2">
-                <h3 className="text-white font-semibold text-lg">{game.title}</h3>
-                <span
-                  className={`text-xs font-medium px-2 py-1 rounded-full border ${
-                    STATUS_COLORS[game.status] || 'bg-gray-500/15 text-gray-400 border-gray-500/30'
-                  }`}
-                >
-                  {game.status}
-                </span>
-              </div>
+              {game.coverImageUrl && (
+                <div className="h-32 w-full overflow-hidden">
+                  <img src={game.coverImageUrl} alt="" className="h-full w-full object-cover" />
+                </div>
+              )}
 
-              <p className="text-gray-400 text-sm mb-3">{game.genre}</p>
+              <div className="p-5">
+                <div className="flex items-start justify-between mb-2">
+                  <h3 className="text-white font-semibold text-lg">{game.title}</h3>
+                  <span
+                    className={`text-xs font-medium px-2 py-1 rounded-full border ${
+                      STATUS_COLORS[game.status] || 'bg-gray-500/15 text-gray-400 border-gray-500/30'
+                    }`}
+                  >
+                    {game.status}
+                  </span>
+                </div>
 
-              <div className="flex items-center justify-between text-sm text-gray-300 mb-4">
-                <span>⭐ {game.rating}/10</span>
-                <span>{game.hoursPlayed}h played</span>
-                <span>{game.platform?.name ?? '—'}</span>
-              </div>
+                <p className="text-gray-400 text-sm mb-3">{game.genre}</p>
 
-              <div className="flex gap-4 text-sm">
-                <Link to={`/add/${game.id}`} className="text-scarlet hover:text-ember">
-                  Edit
-                </Link>
-                <button onClick={() => handleDelete(game.id)} className="text-gray-500 hover:text-red-400">
-                  Delete
-                </button>
+                <div className="flex items-center justify-between text-sm text-gray-300 mb-4">
+                  <span>⭐ {game.rating}/10</span>
+                  <span>{game.hoursPlayed}h played</span>
+                  <span>{game.platform?.name ?? '—'}</span>
+                </div>
+
+                <div className="flex gap-4 text-sm">
+                  <Link to={`/add/${game.id}`} className="text-scarlet hover:text-ember">
+                    Edit
+                  </Link>
+                  <button onClick={() => handleDelete(game.id)} className="text-gray-500 hover:text-red-400">
+                    Delete
+                  </button>
+                </div>
               </div>
             </motion.div>
           ))}

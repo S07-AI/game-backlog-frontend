@@ -1,16 +1,16 @@
 import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import { IconMark } from '../components/icons'
 
 export default function Signup() {
   const { register } = useAuth()
-  const navigate = useNavigate()
   const [email, setEmail] = useState('')
   const [displayName, setDisplayName] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
+  const [submittedEmail, setSubmittedEmail] = useState(null)
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -23,8 +23,8 @@ export default function Signup() {
 
     setLoading(true)
     try {
-      await register(email, displayName, password)
-      navigate('/', { replace: true })
+      const data = await register(email, displayName, password)
+      setSubmittedEmail(data.email)
     } catch (err) {
       if (err.response?.status === 409) {
         setError('An account with that email already exists.')
@@ -34,6 +34,31 @@ export default function Signup() {
     } finally {
       setLoading(false)
     }
+  }
+
+  if (submittedEmail) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-ink px-4 text-white">
+        <div className="w-full max-w-sm">
+          <div className="mb-8 flex items-center justify-center gap-2.5">
+            <IconMark className="h-7 w-6 text-scarlet" />
+            <h1 className="font-display text-2xl font-bold tracking-tight">
+              Backlog<span className="text-scarlet">.</span>
+            </h1>
+          </div>
+          <div className="flex flex-col gap-3 rounded-xl border border-line bg-surface p-6 text-center shadow-[0_20px_60px_-20px_rgba(0,0,0,0.6)]">
+            <h2 className="font-display text-lg font-semibold">Check your email</h2>
+            <p className="text-sm text-gray-400">
+              We sent a confirmation link to <span className="text-white">{submittedEmail}</span>. Click it to
+              activate your account before logging in.
+            </p>
+            <Link to="/login" className="mt-2 text-sm text-scarlet hover:text-ember hover:underline">
+              Back to log in
+            </Link>
+          </div>
+        </div>
+      </div>
+    )
   }
 
   return (

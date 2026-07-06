@@ -10,6 +10,7 @@ import Platforms from './pages/Platforms'
 import AddGame from './pages/AddGame'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
+import ConfirmEmail from './pages/ConfirmEmail'
 
 function AppLayout() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
@@ -51,6 +52,7 @@ export default function App() {
       <Routes location={location} key={location.pathname}>
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/confirm" element={<ConfirmEmail />} />
 
         <Route element={<ProtectedRoute />}>
           <Route element={<AppLayout />}>

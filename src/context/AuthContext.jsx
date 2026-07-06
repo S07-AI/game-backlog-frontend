@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState, useCallback } from 'react'
 import { getToken, setToken, clearToken } from '../api/client'
-import { loginRequest, registerRequest, meRequest } from '../api/auth'
+import { loginRequest, registerRequest, meRequest, confirmEmailRequest } from '../api/auth'
 
 const AuthContext = createContext(null)
 
@@ -46,15 +46,22 @@ export function AuthProvider({ children }) {
     setStatus('authenticated')
   }
 
+  // Register no longer logs the user in — the account isn't usable until they
+  // click the confirmation link in their email. Returns { message, email }.
   const register = async (email, displayName, password) => {
     const { data } = await registerRequest({ email, displayName, password })
+    return data
+  }
+
+  const confirmEmail = async (token) => {
+    const { data } = await confirmEmailRequest(token)
     setToken(data.token)
     setUser({ id: data.userId, email: data.email, displayName: data.displayName })
     setStatus('authenticated')
   }
 
   return (
-    <AuthContext.Provider value={{ user, status, login, register, logout }}>
+    <AuthContext.Provider value={{ user, status, login, register, confirmEmail, logout }}>
       {children}
     </AuthContext.Provider>
   )
