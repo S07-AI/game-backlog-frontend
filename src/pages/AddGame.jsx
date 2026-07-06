@@ -98,12 +98,12 @@ export default function AddGame() {
       exit={{ opacity: 0, y: -10 }}
       transition={{ duration: 0.2 }}
     >
-      <h1 className="text-2xl font-bold text-white mb-6">
+      <h1 className="font-display text-2xl font-bold tracking-tight text-white mb-6">
         {isEditMode ? 'Edit Game' : 'Add New Game'}
       </h1>
 
       {error && (
-        <div className="bg-red-500/10 border border-red-500 text-red-400 text-sm rounded-lg px-4 py-3 mb-4">
+        <div className="bg-scarlet/10 border border-scarlet/40 text-scarlet text-sm rounded-lg px-4 py-3 mb-4">
           {error}
         </div>
       )}
@@ -117,7 +117,7 @@ export default function AddGame() {
             value={form.title}
             onChange={handleChange}
             required
-            className="w-full bg-[#1a1d27] text-white rounded-lg px-4 py-2 border border-gray-700 focus:outline-none focus:border-indigo-500"
+            className="w-full bg-surface text-white rounded-lg px-4 py-2 border border-line focus:outline-none focus:border-scarlet"
           />
         </div>
 
@@ -128,7 +128,7 @@ export default function AddGame() {
             name="genre"
             value={form.genre}
             onChange={handleChange}
-            className="w-full bg-[#1a1d27] text-white rounded-lg px-4 py-2 border border-gray-700 focus:outline-none focus:border-indigo-500"
+            className="w-full bg-surface text-white rounded-lg px-4 py-2 border border-line focus:outline-none focus:border-scarlet"
           />
         </div>
 
@@ -138,7 +138,7 @@ export default function AddGame() {
             name="status"
             value={form.status}
             onChange={handleChange}
-            className="w-full bg-[#1a1d27] text-white rounded-lg px-4 py-2 border border-gray-700 focus:outline-none focus:border-indigo-500"
+            className="w-full bg-surface text-white rounded-lg px-4 py-2 border border-line focus:outline-none focus:border-scarlet"
           >
             {STATUS_OPTIONS.map((s) => (
               <option key={s} value={s}>{s}</option>
@@ -156,7 +156,7 @@ export default function AddGame() {
             value={form.rating}
             onChange={handleChange}
             required
-            className="w-full bg-[#1a1d27] text-white rounded-lg px-4 py-2 border border-gray-700 focus:outline-none focus:border-indigo-500"
+            className="w-full bg-surface text-white rounded-lg px-4 py-2 border border-line focus:outline-none focus:border-scarlet"
           />
         </div>
 
@@ -169,7 +169,7 @@ export default function AddGame() {
             value={form.hoursPlayed}
             onChange={handleChange}
             required
-            className="w-full bg-[#1a1d27] text-white rounded-lg px-4 py-2 border border-gray-700 focus:outline-none focus:border-indigo-500"
+            className="w-full bg-surface text-white rounded-lg px-4 py-2 border border-line focus:outline-none focus:border-scarlet"
           />
         </div>
 
@@ -180,7 +180,7 @@ export default function AddGame() {
             value={form.platformId}
             onChange={handleChange}
             required
-            className="w-full bg-[#1a1d27] text-white rounded-lg px-4 py-2 border border-gray-700 focus:outline-none focus:border-indigo-500"
+            className="w-full bg-surface text-white rounded-lg px-4 py-2 border border-line focus:outline-none focus:border-scarlet"
           >
             <option value="" disabled>Select a platform</option>
             {platforms.map((p) => (
@@ -193,7 +193,7 @@ export default function AddGame() {
           <button
             type="submit"
             disabled={submitting}
-            className="bg-indigo-600 hover:bg-indigo-500 text-white font-medium rounded-lg px-5 py-2 disabled:opacity-50"
+            className="bg-scarlet hover:bg-ember text-white font-medium rounded-lg px-5 py-2 shadow-[0_4px_16px_-4px_rgba(224,38,63,0.6)] transition-colors disabled:opacity-50"
           >
             {submitting ? 'Saving...' : isEditMode ? 'Save Changes' : 'Add Game'}
           </button>

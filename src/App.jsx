@@ -3,6 +3,7 @@ import { Routes, Route, Outlet, useLocation } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
 import Sidebar from './components/Sidebar'
 import ProtectedRoute from './components/ProtectedRoute'
+import { IconMenu, IconMark } from './components/icons'
 import Dashboard from './pages/Dashboard'
 import Library from './pages/Library'
 import Platforms from './pages/Platforms'
@@ -14,20 +15,23 @@ function AppLayout() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
 
   return (
-    <div className="flex min-h-screen bg-[#0f1117] text-white">
+    <div className="flex min-h-screen bg-ink text-white">
       <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
       <div className="flex min-w-0 flex-1 flex-col">
-        <header className="flex items-center justify-between border-b border-white/10 bg-[#1a1d27] px-4 py-3 md:hidden">
-          <span className="text-lg font-bold tracking-tight">🎯 Backlog Tracker</span>
+        <header className="flex items-center justify-between border-b border-line bg-surface px-4 py-3 md:hidden">
+          <div className="flex items-center gap-2">
+            <IconMark className="h-5 w-4 text-scarlet" />
+            <span className="font-display text-base font-bold tracking-tight">
+              Backlog<span className="text-scarlet">.</span>
+            </span>
+          </div>
           <button
             onClick={() => setSidebarOpen(true)}
             className="rounded-lg p-2 text-gray-300 hover:bg-white/5 hover:text-white"
             aria-label="Open menu"
           >
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M4 6h16M4 12h16M4 18h16" strokeLinecap="round" />
-            </svg>
+            <IconMenu className="h-[22px] w-[22px]" />
           </button>
         </header>
 

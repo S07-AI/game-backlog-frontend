@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { getPlatforms, getPlatformGames } from '../api/games'
+
+const MotionLink = motion(Link)
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -55,10 +58,11 @@ export default function Platforms() {
       exit={{ opacity: 0, y: -10 }}
       transition={{ duration: 0.2 }}
     >
-      <h1 className="text-2xl font-bold text-white mb-6">Platforms</h1>
+      <h1 className="font-display text-2xl font-bold tracking-tight text-white mb-1">Platforms</h1>
+      <p className="text-gray-400 text-sm mb-6">Click a platform to see its games</p>
 
       {error && (
-        <div className="bg-red-500/10 border border-red-500 text-red-400 text-sm rounded-lg px-4 py-3 mb-4">
+        <div className="bg-scarlet/10 border border-scarlet/40 text-scarlet text-sm rounded-lg px-4 py-3 mb-4">
           {error}
         </div>
       )}
@@ -75,16 +79,22 @@ export default function Platforms() {
           animate="show"
         >
           {platforms.map((platform) => (
-            <motion.div
+            <MotionLink
               key={platform.id}
+              to={`/library?platform=${platform.id}&platformName=${encodeURIComponent(platform.name)}`}
               variants={cardVariants}
-              className="bg-[#1a1d27] rounded-xl p-6 border border-gray-800 hover:border-gray-700 transition"
+              className="group flex items-center justify-between rounded-xl border border-line bg-surface p-6 transition-all duration-200 hover:border-scarlet/30 hover:shadow-[0_8px_24px_-12px_rgba(224,38,63,0.4)]"
             >
-              <h3 className="text-white font-semibold text-lg mb-1">{platform.name}</h3>
-              <p className="text-gray-400 text-sm">
-                {platform.gameCount} {platform.gameCount === 1 ? 'game' : 'games'}
-              </p>
-            </motion.div>
+              <div>
+                <h3 className="text-white font-semibold text-lg mb-1">{platform.name}</h3>
+                <p className="text-gray-400 text-sm">
+                  {platform.gameCount} {platform.gameCount === 1 ? 'game' : 'games'}
+                </p>
+              </div>
+              <span className="text-scarlet opacity-0 transition-opacity duration-200 group-hover:opacity-100">
+                →
+              </span>
+            </MotionLink>
           ))}
         </motion.div>
       )}
