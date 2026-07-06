@@ -87,12 +87,12 @@ export default function AddGame() {
   }
 
   if (loading) {
-    return <div className="text-gray-400 p-8">Loading...</div>
+    return <div className="text-gray-400">Loading...</div>
   }
 
   return (
     <motion.div
-      className="max-w-xl mx-auto p-8"
+      className="max-w-xl mx-auto"
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -10 }}

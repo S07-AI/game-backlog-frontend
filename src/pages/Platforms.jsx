@@ -50,7 +50,6 @@ export default function Platforms() {
 
   return (
     <motion.div
-      className="p-8"
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -10 }}

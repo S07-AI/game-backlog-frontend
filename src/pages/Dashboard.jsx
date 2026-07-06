@@ -80,25 +80,27 @@ export default function Dashboard() {
         ))}
       </motion.div>
 
-      <div className="bg-[#1a1d27] rounded-xl p-6 border border-white/10">
+      <div className="bg-[#1a1d27] rounded-xl p-4 sm:p-6 border border-white/10">
         <h3 className="text-white font-semibold mb-6">Games by Status</h3>
-        <div className="flex items-center gap-8">
-          <ResponsiveContainer width={220} height={220}>
-            <RadialBarChart
-              innerRadius="30%"
-              outerRadius="100%"
-              data={chartData}
-              startAngle={180}
-              endAngle={-180}
-            >
-              <RadialBar dataKey="value" cornerRadius={4} />
-              <Tooltip
-                contentStyle={{ background: '#1a1d27', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 8 }}
-                labelStyle={{ color: '#fff' }}
-              />
-            </RadialBarChart>
-          </ResponsiveContainer>
-          <div className="flex flex-col gap-3">
+        <div className="flex flex-col items-center gap-6 sm:flex-row sm:gap-8">
+          <div className="w-full max-w-[220px] shrink-0" style={{ height: 220 }}>
+            <ResponsiveContainer width="100%" height="100%">
+              <RadialBarChart
+                innerRadius="30%"
+                outerRadius="100%"
+                data={chartData}
+                startAngle={180}
+                endAngle={-180}
+              >
+                <RadialBar dataKey="value" cornerRadius={4} />
+                <Tooltip
+                  contentStyle={{ background: '#1a1d27', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 8 }}
+                  labelStyle={{ color: '#fff' }}
+                />
+              </RadialBarChart>
+            </ResponsiveContainer>
+          </div>
+          <div className="flex w-full flex-col gap-3 sm:w-auto">
             {stats.gamesByStatus.map(s => (
               <div key={s.status} className="flex items-center gap-3">
                 <div className="w-3 h-3 rounded-full" style={{ background: STATUS_COLORS[s.status] ?? '#888' }} />

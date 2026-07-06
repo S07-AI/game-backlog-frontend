@@ -67,13 +67,12 @@ export default function Library() {
 
   return (
     <motion.div
-      className="p-8"
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -10 }}
       transition={{ duration: 0.2 }}
     >
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
         <h1 className="text-2xl font-bold text-white">Library</h1>
         <Link
           to="/add"
@@ -91,7 +90,7 @@ export default function Library() {
         className="w-full bg-[#1a1d27] text-white rounded-lg px-4 py-2 border border-gray-700 focus:outline-none focus:border-indigo-500 mb-4"
       />
 
-      <div className="flex gap-2 mb-6">
+      <div className="flex flex-wrap gap-2 mb-6">
         {STATUS_FILTERS.map((status) => (
           <button
             key={status}
