@@ -1,14 +1,12 @@
-import axios from 'axios'
+import client from './client'
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5220/api'
-
-export const getGames = (params) => axios.get(`${API_URL}/games`, { params })
-export const getGame = (id) => axios.get(`${API_URL}/games/${id}`)
-export const createGame = (game) => axios.post(`${API_URL}/games`, game)
-export const updateGame = (id, game) => axios.put(`${API_URL}/games/${id}`, game)
-export const deleteGame = (id) => axios.delete(`${API_URL}/games/${id}`)
-export const searchGames = (q) => axios.get(`${API_URL}/games/search`, { params: { q } })
-export const getStats = () => axios.get(`${API_URL}/stats`)
-export const getPlatforms = () => axios.get(`${API_URL}/platforms`)
-export const createPlatform = (platform) => axios.post(`${API_URL}/platforms`, platform)
-export const getPlatformGames = (id) => axios.get(`${API_URL}/platforms/${id}/games`)
+export const getGames = (params) => client.get('/games', { params })
+export const getGame = (id) => client.get(`/games/${id}`)
+export const createGame = (game) => client.post('/games', game)
+export const updateGame = (id, game) => client.put(`/games/${id}`, game)
+export const deleteGame = (id) => client.delete(`/games/${id}`)
+export const searchGames = (q) => client.get('/games/search', { params: { q } })
+export const getStats = () => client.get('/stats')
+export const getPlatforms = () => client.get('/platforms')
+export const createPlatform = (platform) => client.post('/platforms', platform)
+export const getPlatformGames = (id) => client.get(`/platforms/${id}/games`)
